@@ -28,6 +28,6 @@ public enum  DayOfWeek {
 
     @Override
     public String toString() {
-        return nameOfDay.toString();
+        return nameOfDay;
     }
 }

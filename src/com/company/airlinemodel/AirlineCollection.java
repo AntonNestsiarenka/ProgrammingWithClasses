@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class AirlineCollection {
 
-    private ArrayList<Airline> airlines = new ArrayList<Airline>();
+    /* Коллекция воздушных рейсов */
+
+    private ArrayList<Airline> airlines = new ArrayList<>();
 
     public AirlineCollection(Airline airline)
     {
@@ -53,7 +55,7 @@ public class AirlineCollection {
     public ArrayList<Airline> getAirLinesWithAGivenDestinationName(String destinationName)
     {
         // Возвращает авиалинии по заданному пункту назаначения.
-        ArrayList<Airline> newAirLines = new ArrayList<Airline>();
+        ArrayList<Airline> newAirLines = new ArrayList<>();
         for (Airline airline : airlines)
         {
             if (airline.isAirLineWithAGivenDestinationName(destinationName))
@@ -67,7 +69,7 @@ public class AirlineCollection {
     public ArrayList<Airline> getAirLinesWithAGivenDayOfWeek(DayOfWeek dayOfWeek)
     {
         // Возвращает авиалинии по заданному дню отправления.
-        ArrayList<Airline> newAirLines = new ArrayList<Airline>();
+        ArrayList<Airline> newAirLines = new ArrayList<>();
         for (Airline airline : airlines)
         {
             if (airline.isAirLineWithAGivenDayOfWeek(dayOfWeek))
@@ -81,7 +83,7 @@ public class AirlineCollection {
     public ArrayList<Airline> getAirLinesWithAGivenDayOfWeekAndAfterGivenTime(DayOfWeek dayOfWeek, Time time)
     {
         // Возвращает авиалинии для заданного дня отправления, время отправления для которых больше заданного времени.
-        ArrayList<Airline> newAirLines = new ArrayList<Airline>();
+        ArrayList<Airline> newAirLines = new ArrayList<>();
         for (Airline airline : airlines)
         {
             if (airline.isAirLineWithAGivenDayOfWeek(dayOfWeek))

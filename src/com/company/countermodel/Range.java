@@ -2,12 +2,12 @@ package com.company.countermodel;
 
 import java.util.ArrayList;
 
-public class Range {
+public final class Range {
 
-    /* Класс описывает диапазон целочисленных значений от lowLimit до highLimit (не включая highLimit). */
+    /* Класс реализует диапазон целочисленных значений от lowLimit до highLimit (не включая highLimit). */
 
-    private int lowLimit;
-    private int highLimit;
+    private final int lowLimit;
+    private final int highLimit;
 
     public Range()
     {
@@ -56,12 +56,20 @@ public class Range {
     public ArrayList<Integer> getSequenceListOfRange()
     {
         // Возвращает последовательность диапазона в виде листа.
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        ArrayList<Integer> array = new ArrayList<>();
         int offset = (lowLimit <= highLimit) ? 1 : -1;
         for (int i = 0, j = lowLimit; i < Math.abs(highLimit - lowLimit); i++, j += offset)
         {
             array.add(j);
         }
         return array;
+    }
+
+    @Override
+    public String toString() {
+        return "Range{" +
+                "lowLimit=" + lowLimit +
+                ", highLimit=" + highLimit +
+                '}';
     }
 }

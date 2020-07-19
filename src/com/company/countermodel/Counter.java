@@ -2,9 +2,11 @@ package com.company.countermodel;
 
 import Utils.MyException;
 
-public class Counter {
+public final class Counter {
 
-    private Range range;
+    /* Класс реализует целочисленный счетчик. */
+
+    private final Range range;
     private int counter;
 
     public Counter()
@@ -45,6 +47,12 @@ public class Counter {
         return range;
     }
 
+    public boolean inRange()
+    {
+        // Проверяет находится ли текущее состояние счетчика в диапазоне.
+        return range.inRange(counter);
+    }
+
     public void increase() throws MyException
     {
         /* Увеличивает значение счетчика на единицу если текущее значение счетчика будет в пределах заданного диапазона
@@ -70,5 +78,26 @@ public class Counter {
         {
             throw new MyException("Попытка выйти за границы диапазона Range");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Counter{" +
+                "range=" + range +
+                ", counter=" + counter +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Counter counter1 = (Counter) o;
+        return counter == counter1.counter;
+    }
+
+    @Override
+    public int hashCode() {
+        return counter;
     }
 }

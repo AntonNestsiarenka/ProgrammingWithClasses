@@ -2,11 +2,13 @@ package com.company.textmodel;
 
 public class Word {
 
+    /* Класс реализует слово. */
+
     private String word;
 
     public Word()
     {
-        word = new String("");
+        word = "";
     }
 
     public Word(String word)

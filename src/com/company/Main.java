@@ -1,34 +1,58 @@
 package com.company;
 
 import Utils.GenerationUtils;
-import Utils.InputOutputUtils;
+import Utils.InputUtils;
 import Utils.MyException;
 import Utils.OtherUtils;
-import com.company.accountmodel.*;
+import com.company.Student.Student;
+import com.company.Test1.Test1;
+import com.company.Test2.Test2;
+import com.company.accountmodel.Account.Account;
+import com.company.accountmodel.Bank.Bank;
+import com.company.accountmodel.IdentityDocument.children.Passport;
+import com.company.accountmodel.Person.Sex;
+import com.company.accountmodel.Person.children.ClientOfBank;
 import com.company.airlinemodel.Airline;
 import com.company.airlinemodel.AirlineCollection;
 import com.company.airlinemodel.DayOfWeek;
 import com.company.bookmodel.Book;
 import com.company.bookmodel.BookCollection;
 import com.company.carmodel.*;
-import com.company.carmodel.Person;
+import com.company.carmodel.car.Car;
+import com.company.carmodel.engine.Engine;
+import com.company.carmodel.engine.TypeOfEngine;
+import com.company.carmodel.person.children.Driver;
+import com.company.carmodel.person.children.Passenger;
+import com.company.carmodel.person.children.PersonUnit;
+import com.company.carmodel.wheel.Wheel;
 import com.company.countermodel.Counter;
 import com.company.customermodel.Customer;
 import com.company.customermodel.CustomerCollection;
-import com.company.statemodel.*;
+import com.company.statemodel.city.children.Capital;
+import com.company.statemodel.city.children.DistrictCity;
+import com.company.statemodel.city.children.RegionalCity;
+import com.company.statemodel.city.children.VillageCity;
+import com.company.statemodel.territorial_fragment.children.District;
+import com.company.statemodel.territorial_fragment.children.Region;
+import com.company.statemodel.territorial_fragment.children.State;
 import com.company.textmodel.Sentence;
 import com.company.textmodel.Text;
 import com.company.textmodel.TypeOfSentence;
 import com.company.textmodel.Word;
 import com.company.trainmodel.Time;
 import com.company.trainmodel.Train;
-import com.company.travelmodel.*;
+import com.company.travelmodel.client.ClientOfTravelAgency;
+import com.company.travelmodel.travel_agency.TravelAgency;
+import com.company.travelmodel.travel_voucher.TravelVoucher;
+import com.company.travelmodel.travel_voucher.TypeOfFood;
+import com.company.travelmodel.travel_voucher.TypeOfTransport;
+import com.company.travelmodel.travel_voucher.TypeOfTravelVoucher;
+import com.company.trianglmodel.Triangle;
 import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -67,12 +91,12 @@ public class Main {
         /*  Создайте класс с именем Student, содержащий поля: фамилия и инициалы, номер группы, успеваемость (массив
             из пяти элементов). Создайте массив из десяти элементов такого типа. Добавьте возможность вывода фамилий и
             номеров групп студентов, имеющих оценки, равные только 9 или 10. */
-        Student[] students = new Student[3];
+        Student[] students = new Student[10];
         for (int i = 0; i < students.length; i++)
         {
             students[i] = new Student();
-            students[i].setName(InputOutputUtils.inputLine("Введите имя студента: "));
-            students[i].setGroupName(InputOutputUtils.inputLine("Введите имя группы студента: "));
+            students[i].setName(InputUtils.inputLine("Введите имя студента: "));
+            students[i].setGroupName(InputUtils.inputLine("Введите имя группы студента: "));
             students[i].setProgress(GenerationUtils.createAndFill1DArrayRandom(5, 9, 10));
         }
         Student.printStudentsInfoWithHighMarks(students);
@@ -85,10 +109,11 @@ public class Main {
            номерам поездов. Добавьте возможность вывода информации о поезде, номер которого введен пользователем.
            Добавьте возможность сортировки массив по пункту назначения, причем поезда с одинаковыми пунктами
            назначения должны быть упорядочены по времени отправления. */
-            Train[] trains = new Train[5];
+        Scanner scanner = new Scanner(System.in);
+        Train[] trains = new Train[5];
         for (int i = 0; i < trains.length; i++)
         {
-            trains[i] = new Train(InputOutputUtils.inputLine("Введите пункт назначения для поезда: "),
+            trains[i] = new Train(InputUtils.inputLine("Введите пункт назначения для поезда: "),
                     GenerationUtils.randInt(1, 1000),
                     new Time(GenerationUtils.randInt(0, 23), GenerationUtils.randInt(0, 59)));
         }
@@ -96,7 +121,7 @@ public class Main {
         Train.printInfo(trains);
         System.out.println();
         System.out.println("Поиск информации о поезде по номеру.\n");
-        Train.printInfoByNumberOfTrain(trains, InputOutputUtils.inputUInt("Введите номер поезда: "));
+        Train.printInfoByNumberOfTrain(trains, InputUtils.inputUInt("Введите номер поезда: ", scanner));
         System.out.println();
         System.out.println("Сортировка поездов по возрастанию номера поезда.\n");
         Train.sortByNumberOfTrainAscending(trains);
@@ -114,8 +139,8 @@ public class Main {
             на единицу в заданном диапазоне. Предусмотрите инициализацию счетчика значениями по умолчанию и
             произвольными значениями. Счетчик имеет методы увеличения и уменьшения состояния, и метод
             позволяющее получить его текущее состояние. Написать код, демонстрирующий все возможности класса. */
-        Counter i = new Counter(0,9);
-        while (true) {
+        Counter i = new Counter(10);
+        while (i.inRange()) {
             System.out.print(i.getCounter() + " ");
             try {
                 i.increase();
@@ -131,17 +156,12 @@ public class Main {
            изменения его отдельных полей (час, минута, секунда) с проверкой допустимости вводимых значений. В случае
            недопустимых значений полей поле устанавливается в значение 0. Создать методы изменения времени на
            заданное количество часов, минут и секунд. */
-        Date date = new Date();
-        Time currentTime = new Time(date.getHours(), date.getMinutes(), date.getSeconds());
+        Time currentTime = new Time();
         int i = 0;
         while (i < 1000)
         {
             currentTime.printTime();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            OtherUtils.sleep(1000);
             currentTime.addSeconds(1);
             i++;
         }
@@ -151,15 +171,16 @@ public class Main {
     {
         /* Описать класс, представляющий треугольник. Предусмотреть методы для создания объектов, вычисления
            площади, периметра и точки пересечения медиан. */
-        Triangl triangl = null;
+        Triangle triangle = null;
         try {
-            triangl = new Triangl(new Pair<Double, Double>(1.0, 2.0), new Pair<Double, Double>(2.0, 3.0), new Pair<Double, Double>(3.0, 2.0));
+            triangle = new Triangle(new Pair<Double, Double>(1.0, 2.0), new Pair<Double, Double>(2.0, 3.0), new Pair<Double, Double>(3.0, 2.0));
         } catch (MyException e) {
             e.printStackTrace();
+            return;
         }
-        System.out.printf("Площадь треугольника: %f\n", triangl.areaOfATriangle());
-        System.out.printf("Периметр треугольника: %f\n", triangl.trianglePerimeter());
-        Pair<Double, Double> point = triangl.meridianIntersectionPoint();
+        System.out.printf("Площадь треугольника: %f\n", triangle.areaOfATriangle());
+        System.out.printf("Периметр треугольника: %f\n", triangle.trianglePerimeter());
+        Pair<Double, Double> point = triangle.meridianIntersectionPoint();
         System.out.printf("Точка пересечения координат треугольника: x = %f, y = %f \n", point.getKey(), point.getValue());
     }
 
@@ -181,9 +202,9 @@ public class Main {
         collection.addCustomerToCollection(new Customer("Lebedev", "Nikolay", "Olegovich", "Soligorsk, Shepinskaya street 12", 3121675565225019L, "SKU2635081001-509-008BYN"));
         System.out.println("Информация о всех покупателях из коллекции покупателей.");
         collection.printInfoAboutAllCustomers();
-        ArrayList<Customer> col = collection.sortBySurname();
+        collection.sortBySurname();
         System.out.println("Информация о всех покупателях отсортированная по фамилии.");
-        CustomerCollection.printInfo(col);
+        collection.printInfoAboutAllCustomers();
         ArrayList<Customer> customers = collection.getCustomersWithCreditCardNumberInRange(2135002541003661L, 4120560236001447L);
         System.out.println("Информация о всех покупателях номера кредитных карт которых находятся в заданном диапазоне.");
         CustomerCollection.printInfo(customers);
@@ -207,7 +228,7 @@ public class Main {
         collection.addBookToBookCollection(new Book("Приемы объектно ориентированного проектирования", new String[] {"Э. Гамма", "Р. Хелм", "Р. Джонсон", "Д. Влиссидес"}, "Питер", 2020, 390, 16.25, "Мягкий"));
         System.out.println("Информация о всех книгах из коллекции книг.\n");
         collection.printInfo();
-        ArrayList<Book> booksByAuthor =collection.getBooksWithAGivenAuthor("Р. Хелм");
+        ArrayList<Book> booksByAuthor = collection.getBooksWithAGivenAuthor("Р. Хелм");
         System.out.println("Информация о всех книгах по заданному автору.\n");
         BookCollection.printInfo(booksByAuthor);
         ArrayList<Book> booksByPublishingHouse = collection.getBooksWithAGivenPublishingHouse("Питер");
@@ -262,11 +283,12 @@ public class Main {
             fileReader = new FileReader("wordsForText.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return;
         }
         Scanner scanner = new Scanner(fileReader);
         while (scanner.hasNextLine())
         {
-            ArrayList<Word> words = new ArrayList<Word>();
+            ArrayList<Word> words = new ArrayList<>();
             String line = scanner.nextLine();
             Pattern pattern = Pattern.compile("((\\w+[^ ]\\w+)|(\\w+))");
             Matcher matcher = pattern.matcher(line);
@@ -284,52 +306,44 @@ public class Main {
     {
         /*  Создать объект класса Автомобиль, используя классы Колесо, Двигатель. Методы: ехать, заправляться,
             менять колесо, вывести на консоль марку автомобиля. */
-        Car car1 = new Car();
+        //Car car1 = new Car();
         Wheel[] wheels = new Wheel[] {new Wheel(), new Wheel(), new Wheel(), new Wheel()};
-        Car car2 = new Car("Audi", "A6", "WAUZZZ4B05631240", 1390, 1980, 75, 30, 4, new Engine("VAG", "BAU", 2003, 514200361L, TypeOfEngine.DIESEL, 2496, 132, 370, 8.3, true), wheels, new Wheel());
-        Person person1 = new Person();
-        Person person2 = new Person("Valentin", "HB4126822", 88.2);
-        Person person3 = new Person("Olga", "HB4522311", 60.4);
-        EventHandlerForTheCar updater = new EventHandlerForTheCar(car2);
-        updater.printInfo();
+        Car car = new Car("Audi", "A6", "WAUZZZ4B05631240", 1390, 1980, 75, 30, 4, new Engine("VAG", "BAU", 2003, 514200361L, TypeOfEngine.DIESEL, 2496, 132, 370, 8.3, true), wheels, new Wheel());
+        PersonUnit person1 = new PersonUnit("Anton", 70);
+        PersonUnit person2 = new PersonUnit("Valentin", 88.2);
+        PersonUnit person3 = new PersonUnit("Olga", 60.4);
+        EventHandlerForTheCar updater = new EventHandlerForTheCar(car);
+        updater.printInfo1();
         OtherUtils.sleep(1000);
-        person1.tryToSeatToCarAsADriver(car2);
-        updater.printInfo();
+        Driver driver = person1.tryToSeatToCarAsADriver(car);
+        updater.printInfo1();
         OtherUtils.sleep(1000);
-        person2.tryToSeatToCarAsAPassenger(car2);
-        updater.printInfo();
+        Passenger passenger1 = person2.tryToSeatToCarAsAPassenger(car);
+        updater.printInfo1();
         OtherUtils.sleep(1000);
-        person3.tryToSeatToCarAsAPassenger(car2);
-        updater.printInfo();
+        Passenger passenger2 = person3.tryToSeatToCarAsAPassenger(car);
+        updater.printInfo1();
         OtherUtils.sleep(1000);
-        person1.startTheCarEngine(car2);
+        driver.startEngine();
         OtherUtils.sleep(1000);
         updater.update();
-        updater.printInfo();
+        updater.printInfo2();
         OtherUtils.sleep(1000);
-        try {
-            person1.ToGoOnCar(car2, 10);
-        } catch (MyException e) {
-            e.printStackTrace();
-        }
+        driver.controlMovement(10);
         OtherUtils.sleep(1000);
         System.out.println("Машина поехала.\n");
         OtherUtils.sleep(1000);
         updater.update();
-        updater.printInfo();
+        updater.printInfo2();
         int i = 0;
         while (i < 10000)
         {
-            try {
-                person1.ToGoOnCar(car2, GenerationUtils.uniform(0, 100));
-            } catch (MyException e) {
-                break;
-            }
+            driver.controlMovement(GenerationUtils.uniform(0, 100));
             OtherUtils.sleep(1000);
             updater.update();
-            if (car2.getCurrentFuelTankLevel() < 10)
-                car2.refill(GenerationUtils.randInt(5, 20));
-            updater.printInfo();
+            if (car.getCurrentFuelTankLevel() < 10)
+                car.refill(GenerationUtils.randInt(5, 20));
+            updater.printInfo2();
             i++;
         }
     }

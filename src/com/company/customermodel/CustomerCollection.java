@@ -1,12 +1,12 @@
 package com.company.customermodel;
 
-import com.company.customermodel.comparators.SurnameComparator;
-
 import java.util.ArrayList;
 
 public class CustomerCollection {
 
-    private ArrayList<Customer> customers = new ArrayList<Customer>();
+    /* Колекция покупателей. */
+
+    private ArrayList<Customer> customers = new ArrayList<>();
 
     public CustomerCollection(Customer customer)
     {
@@ -40,12 +40,10 @@ public class CustomerCollection {
         customers.add(customer);
     }
 
-    public ArrayList<Customer> sortBySurname()
+    public void sortBySurname()
     {
-        // Возвращает отсортированный по фамилиям список покупателей.
-        ArrayList<Customer> newCustomers = new ArrayList<Customer>(customers);
-        newCustomers.sort(new SurnameComparator());
-        return newCustomers;
+        // Сортирует по фамилиям список покупателей.
+        customers.sort(Customer::compareTo);
     }
 
     public ArrayList<Customer> getCustomersWithCreditCardNumberInRange(long lowLimit, long highLimit)
@@ -57,7 +55,7 @@ public class CustomerCollection {
             lowLimit = highLimit;
             highLimit = temp;
         }
-        ArrayList<Customer> newCustomers = new ArrayList<Customer>();
+        ArrayList<Customer> newCustomers = new ArrayList<>();
         for (Customer customer : customers)
         {
             if (customer.getCreditCardNumber() >= lowLimit && customer.getCreditCardNumber() <= highLimit)

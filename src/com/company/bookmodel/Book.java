@@ -2,11 +2,13 @@ package com.company.bookmodel;
 
 import java.util.Arrays;
 
-public class Book {
+public final class Book {
+
+    /* Класс описывает книгу. */
 
     private static int idUnique = 0;
 
-    private int id;
+    private final int id;
     private String name;
     private String[] authors;
     private String publishingHouse;
@@ -130,7 +132,7 @@ public class Book {
     public boolean isBookWithAGivenPublishingHouse(String publishingHouse)
     {
         // Является ли книга книгой заданного издательства.
-        return this.publishingHouse.equals(publishingHouse);
+        return this.publishingHouse.equalsIgnoreCase(publishingHouse);
     }
 
     public boolean isBookAfterGivenYear(int year)

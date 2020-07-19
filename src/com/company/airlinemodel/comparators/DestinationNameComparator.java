@@ -6,6 +6,8 @@ import java.util.Comparator;
 
 public class DestinationNameComparator implements Comparator<Airline> {
 
+    /* Компаратор для сравнения авиарейсов по пункту назначения. */
+
     @Override
     public int compare(Airline o1, Airline o2) {
 

@@ -1,10 +1,12 @@
 package com.company.customermodel;
 
-public class Customer {
+public final class Customer implements Comparable<Customer> {
+
+    /* Класс реализует покупателя */
 
     private static int idUnique = 0;
 
-    private int id;
+    private final int id;
     private String surname;
     private String name;
     private String patronymic;
@@ -104,5 +106,23 @@ public class Customer {
                 ", creditCardNumber='" + creditCardNumber + '\'' +
                 ", bankAccountNumber='" + bankAccountNumber + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id == customer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return surname.compareTo(o.surname);
     }
 }

@@ -1,6 +1,10 @@
 package com.company.trainmodel;
 
+import java.util.Objects;
+
 public class Train {
+
+    /* Класс описывает поезд. */
 
     private String destinationName;
     private int numberOfTrain;
@@ -44,15 +48,35 @@ public class Train {
         this.departureTime = departureTime;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Номер поезда %d.\nПункт назначения %s.\nВремя отправления %s.",
+                numberOfTrain, destinationName, departureTime.toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Train train = (Train) o;
+        return numberOfTrain == train.numberOfTrain &&
+                Objects.equals(destinationName, train.destinationName) &&
+                Objects.equals(departureTime, train.departureTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(destinationName, numberOfTrain, departureTime);
+    }
+
     public static void printInfoByNumberOfTrain(Train[] trains, int number)
     {
         // Выводит информацию о запрашиваемом поезде по номеру number.
         System.out.println("Информация о запрашиваемом поезде:");
-        int indexOfTrain = searchNumberOfTrainInArray(trains, number);
-        if (indexOfTrain >= 0)
+        Train train = searchNumberOfTrainInArray(trains, number);
+        if (train != null)
         {
-            System.out.printf("Номер поезда %d.\nПункт назначения %s.\nВремя отправления %s.\n",
-                    trains[indexOfTrain].numberOfTrain, trains[indexOfTrain].destinationName, trains[indexOfTrain].departureTime.toString());
+            System.out.println(train);
         }
         else
         {
@@ -65,8 +89,7 @@ public class Train {
         // Выводит всю информацию об объектах массива поездов.
         for (Train train : trains)
         {
-            System.out.printf("Номер поезда %d. Пункт назначения %s. Время отправления %s.\n",
-                    train.numberOfTrain, train.destinationName, train.departureTime.toString());
+            System.out.println(train);
         }
     }
 
@@ -108,16 +131,16 @@ public class Train {
         }
     }
 
-    private static int searchNumberOfTrainInArray(Train[] trains, int number)
+    private static Train searchNumberOfTrainInArray(Train[] trains, int number)
     {
-        /* Ищет заданный номер поезда в массиве поездов. Если такой номер существует, то возвращает индекс поезда в
-           массиве. Если поезда с таким номером не нашлось, то возвращает -1. */
-        for (int i = 0; i < trains.length; i++)
+        /* Ищет заданный номер поезда в массиве поездов. Если такой номер существует, то возвращает объект поезд.
+           Если поезда с таким номером не нашлось, то возвращает null. */
+        for (Train train : trains)
         {
-            if (number == trains[i].numberOfTrain)
-                return i;
+            if (number == train.numberOfTrain)
+                return train;
         }
-        return -1;
+        return null;
     }
 
     private static void swap(Train[] trains, int index)

@@ -4,19 +4,21 @@ import java.util.ArrayList;
 
 public class Text {
 
+    /* Класс реализует некоторый текст из набора предложений. */
+
     private String heading;
     private ArrayList<Sentence> sentences;
 
     public Text()
     {
         heading = "";
-        sentences = new ArrayList<Sentence>();
+        sentences = new ArrayList<>();
     }
 
     public Text(String heading, Sentence sentence)
     {
         this.heading = heading;
-        sentences = new ArrayList<Sentence>();
+        sentences = new ArrayList<>();
         addSentenceToText(sentence);
     }
 

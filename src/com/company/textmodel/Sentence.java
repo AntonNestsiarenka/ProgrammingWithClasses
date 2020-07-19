@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class Sentence {
 
+    /* Класс реализует предложение из набора слов. */
+
     private TypeOfSentence typeOfSentence;
-    private ArrayList<Word> wordsOfSentence = new ArrayList<Word>();
+    private ArrayList<Word> wordsOfSentence = new ArrayList<>();
 
     public Sentence()
     {

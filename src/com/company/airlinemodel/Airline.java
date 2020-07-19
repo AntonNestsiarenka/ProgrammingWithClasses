@@ -4,12 +4,14 @@ import com.company.trainmodel.Time;
 
 import java.util.Arrays;
 
-public class Airline {
+public final class Airline {
+
+    /* Класс реализует воздушный рейс */
 
     private static int flightNumberUnique = 0;
 
     private String destinationName;
-    private int flightNumber;
+    private final int flightNumber;
     private String typeOfAircraft;
     private Time departureTime;
     private DayOfWeek[] schedule;
@@ -87,7 +89,7 @@ public class Airline {
     public boolean isAirLineWithAGivenDestinationName(String destinationName)
     {
         // Является ли авиалиния авиалинией с заданным пунктом назначения.
-        return this.destinationName.equals(destinationName);
+        return this.destinationName.equalsIgnoreCase(destinationName);
     }
 
     public boolean isAirLineWithAGivenDayOfWeek(DayOfWeek givenDayOfWeek)

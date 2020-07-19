@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class BookCollection {
 
-    private ArrayList<Book> books = new ArrayList<Book>();
+    /* Коллекция книг */
+
+    private ArrayList<Book> books = new ArrayList<>();
 
     public BookCollection(Book book)
     {
@@ -51,7 +53,7 @@ public class BookCollection {
     public ArrayList<Book> getBooksWithAGivenAuthor(String author)
     {
         // Возвращает список книг с заданным автором.
-        ArrayList<Book> booksWithAGivenAuthor = new ArrayList<Book>();
+        ArrayList<Book> booksWithAGivenAuthor = new ArrayList<>();
         for (Book book : books)
         {
             if (book.isBookWithAGivenAuthor(author))
@@ -65,7 +67,7 @@ public class BookCollection {
     public ArrayList<Book> getBooksWithAGivenPublishingHouse(String publishingHouse)
     {
         // Возвращает список книг с заданным издательством.
-        ArrayList<Book> booksWithAGivenPublishingHouse = new ArrayList<Book>();
+        ArrayList<Book> booksWithAGivenPublishingHouse = new ArrayList<>();
         for (Book book : books)
         {
             if (book.isBookWithAGivenPublishingHouse(publishingHouse))
@@ -79,7 +81,7 @@ public class BookCollection {
     public ArrayList<Book> getBooksAfterGivenYear(int year)
     {
         // Возвращает список книг выпущенных после заданного года.
-        ArrayList<Book> booksAfterGivenYear = new ArrayList<Book>();
+        ArrayList<Book> booksAfterGivenYear = new ArrayList<>();
         for (Book book : books)
         {
             if (book.isBookAfterGivenYear(year))
