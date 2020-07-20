@@ -1,6 +1,8 @@
 package Utils;
 
-public class OtherUtils {
+public final class OtherUtils {
+
+    /* Различные полезные методы. */
 
     public static void sleep(int time)
     {

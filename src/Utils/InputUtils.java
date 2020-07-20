@@ -3,7 +3,7 @@ package Utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class InputUtils {
+public final class InputUtils {
 
     /* Методы ввода различных значений из консоли. */
 

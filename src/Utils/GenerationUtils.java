@@ -1,6 +1,6 @@
 package Utils;
 
-public class GenerationUtils {
+public final class GenerationUtils {
 
     /* Различные генеративные методы. */
 
